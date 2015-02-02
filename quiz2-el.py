@@ -1,0 +1,278 @@
+# -*- coding: cp1253 -*-
+from tkinter import *
+from time import sleep
+
+var = 0
+
+
+def create(w, x1, y1):
+    w.place(x=x1, y=y1)
+
+
+def erase(w):
+    w.destroy()
+
+
+def reset(w):
+    w.destroy()
+    start()
+
+
+def exit(w):
+    w.destroy()
+
+
+def callback(event):
+    print("clicked at", event.x, event.y)
+
+
+def clicked(event):
+    global var
+    var = 1
+
+
+def nextquestion(TL, root, counter, step):
+    step += 1
+    if step <= 10:
+        e_q1(root, counter, step)
+        TL.destroy()
+    else:
+        TL.destroy()
+        endscreen(root, counter)
+
+
+def endscreen(root, counter):
+    TL = Toplevel()
+    w, h = TL.winfo_screenwidth(), TL.winfo_screenheight()
+    TL.overrideredirect(1)
+    TL.geometry("%dx%d+0+0" % (w, h))
+    photo = PhotoImage(file="final.gif")
+    wback = Label(TL, image=photo)
+    wback.photo = photo
+    wback.place(x=-5, y=-5)
+
+    ex = Button(TL, text="ΕΞΟΔΟΣ", bd=1, width=6, font="Verdana 10 bold", bg="red", fg="White",
+                command=lambda: restart(TL, root))
+    ex.pack()
+    ex.place(x=1200, y=725)
+    l = Label(TL, text=str(counter)+" out of 10", font="Verdana 80", bg="white", pady=10)
+    l.pack(side=TOP)
+    if counter >= 9:
+        photo = PhotoImage(file="excellent.gif")
+    elif counter >= 7:
+        photo = PhotoImage(file="welldone.gif")
+    elif counter >= 5:
+        photo = PhotoImage(file="nicetry.gif")
+    else:
+        photo = PhotoImage(file="nexttime.gif")
+    wlogo = Label(TL, image=photo)
+    wlogo.photo = photo
+    wlogo.place(x=230, y=200)
+    TL.update()
+
+
+def restart(TL,root):
+    counter = 0
+    step = 1
+    TL.destroy()
+
+    # backfile = 'final.gif'
+    #    photo = PhotoImage(file=backfile)
+    #    w = Label(TL, image=photo)
+    #    w.photo = photo
+    #    w.place(x=-5, y=-5)
+    #    ex = Button(TL, text="EXIT", bd=1, width=6, font="Verdana 10 bold", bg="red", fg="White",
+    #                command=lambda: root.destroy())
+    #    ex.pack()
+    #    ex.place(x=1168, y=725)
+    #    if counter >= 7:
+    #        l = Label(TL, text="You got more than 7 questions right, well done!", font="Verdana 20", bg="Plum", pady=10)
+    #        l.pack(side=TOP)
+
+
+def e_q1(root, counter, step):
+    global var
+    TL = Toplevel()
+    w, h = TL.winfo_screenwidth(), TL.winfo_screenheight()
+    TL.overrideredirect(1)
+    TL.geometry("%dx%d+0+0" % (w, h))
+    a01 = 0
+    a02 = 0
+    a03 = 0
+    if step == 1:
+        question = "Ερώτηση 1: Τι ποσοστό του νερού της γης είναι αλμυρό και ακατάλληλο για πόση;"
+        a1 = "37%"
+        a2 = "97%"
+        a3 = "67%"
+        backfile = "1.gif"  # effinet
+        solution = "1ans.gif"
+        a02 = 1
+    elif step == 2:
+        question = "Ερώτηση 2: Πόσο νερό καταναλώνουν κατά μέσο όρο ημερησίως οι Ευρωπαίοι;"
+        a1 = "60 Λίτρα"
+        a2 = "130 Λίτρα"
+        a3 = "10 Λίτρα"
+        solution = "2ans.gif"
+        backfile = "2.gif"  # William Newman
+        a02 = 1
+    elif step == 3:
+        question = "Ερώτηση 3: Ποιά ουσία χρησιμοποιείται συνήθως για απολύμανση του νερού από τα βακτήρια;"
+        a1 = "Σαπούνι"
+        a2 = "Κιτρικό οξύ"
+        a3 = "Χλωρίνη"
+        solution = "3ans.gif"
+        backfile = "3.gif"  # Jacob Vanderheyden
+        a03 = 1
+    elif step == 4:
+        question = "Ερώτηση 4: Πόσο νερό χάνεται λόγω διαρροών στην Κύπρο?"
+        a1 = "Περίπου 20%"
+        a2 = "Περίπου 50%"
+        a3 = "Περίπου 12%"
+        solution = "4ans.gif"
+        backfile = "4.gif"  # Pete
+        a01 = 1
+    elif step == 5:
+        question = "Ερώτηση 5: Πόσο ποσοστό της ενέργειας στις ΗΠΑ χρησιμοποιείται για παραγωγή/διανομή νερού;"
+        a1 = "7%"
+        a2 = "13%"
+        a3 = "3%"
+        solution = "5ans.gif"
+        backfile = "5.gif"  #
+        a02 = 1
+    elif step == 6:
+        question = "Ερώτηση 6: Πώς ανιχνεύουν οι εταιρίες υδατοπρομήθειας τις αφανείς διαρροές νερού;"
+        a1 = "Με ρομπότ σε αγωγούς"
+        a2 = "Από την άυξηση στη νυκτερινή κατανάλωση"
+        a3 = "Από παράπονα καταναλωτών"
+        solution = "6ans.gif"
+        backfile = "6.gif"  #
+        a02 = 1
+    elif step == 7:
+        question = "Ερώτηση 7: Μια αντλία νερού..."
+        a1 = "προσθέτει ενέργεια/αυξάνει την πίεση"
+        a2 = "αφαιρεί ενέργεια/μειώνει την πίεση"
+        a3 = "βελτιώνει την ποιότητα του νερού"
+        backfile = "7.gif"  #
+        solution = "7ans.gif"
+        a01 = 1
+    elif step == 8:
+        question = "Ερώτηση 8: Η περισσότερη κατανάλωση ενέργειας σε ένα δίκτυο νερού οφείλεται: "
+        a1 = "Στα συστήματα απολύμανσης"
+        a2 = "Στους υπολογιστές"
+        a3 = "Στη λειτουργία αντλιών"
+        solution = "8ans.gif"
+        backfile = "8.gif"  #
+        a03 = 1
+    elif step == 9:
+        question = "Ερώτηση 9: Πώς μπορούμε να μειώσουμε το κόστος ενέργειας που χρησιμοποιείται στα δίκτυα νερού;"
+        a1 = "Χρησιμοποίηση αντλιών σε ώρες μη-αιχμής"
+        a2 = "Χρησιμοποίηση αντλιών σε ώρες αιχμής"
+        a3 = "Αύξηση της τιμής του νερού"
+        solution = "9ans.gif"
+        backfile = "9.gif"  #
+        a01 = 1
+    elif step == 10:
+        question = "Ερώτηση 10: Στο μέλλον, οι εταιρίες υδατοπρομήθειας θα:"
+        a1 = "Στέλνουν πληροφορίες στους καταναλωτές"
+        a2 = "Παίρνουν πληροφορίες από τους καταναλωτές"
+        a3 = "Όλα τα πιο πάνω"
+        solution = "10ans.gif"
+        backfile = "10.gif"  #
+        a03 = 1
+
+    photo = PhotoImage(file=backfile)
+    wback = Label(TL, image=photo)
+    wback.photo = photo
+    wback.place(x=-5, y=-5)
+
+    photo = PhotoImage(file="logo2.gif")
+    wlogo = Label(TL, image=photo)
+    wlogo.photo = photo
+    wlogo.place(x=1050, y=100)
+
+    l = Label(TL, text=question, font="Verdana 20", bg="Plum", pady=10)
+    l.pack(side=TOP)
+
+    b2 = Button(TL, text=a1, bd=10, width=35, font="Verdana 11 bold", bg="Darkred", fg="White",
+                command=lambda: e_correct1(root, TL, a01, counter, step, solution))
+    b2.pack()
+    b2.place(x=500, y=250)
+    b3 = Button(TL, text=a2, bd=10, width=35, font="Verdana 11 bold", bg="Darkred", fg="White",
+                command=lambda: e_correct1(root, TL, a02, counter, step, solution))
+    b3.pack()
+    b3.place(x=500, y=340)
+    b2 = Button(TL, text=a3, bd=10, width=35, font="Verdana 11 bold", bg="Darkred", fg="White",
+                command=lambda: e_correct1(root, TL, a03, counter, step, solution))
+    b2.pack()
+    b2.place(x=500, y=430)
+    # ex = Button(window2, text="EXIT", bd=1, width=6, font="Verdana 10 bold", bg="red", fg="White",
+    # command=lambda: exit2(window1))
+    # ex.pack()
+    # ex.place(x=1168, y=725)
+    ex1 = Button(TL, text="Επιστροφή", bd=1, width=8, font="Verdana 10 bold", bg="red", fg="White",
+                 command=lambda: TL.destroy())
+    ex1.pack()
+    ex1.place(x=1200, y=725)
+
+
+def e_correct1(root, TL, a, counter, step, solution):
+    # t = Text(TL, text=solution, font="Verdana 20", bg="Plum")
+    # t.place(100,20)
+    # l = Label(TL, text=solution, font="Verdana 20", bg="Plum", pady=10)
+    #l.pack(side=BOTTOM)
+
+    photo = PhotoImage(file=solution)
+    wsol = Label(TL, image=photo)
+    wsol.photo = photo
+    wsol.place(x=100, y=100)
+
+    if a == 1:
+        counter += 1
+        photo = PhotoImage(file="cr.gif")
+        w = Label(TL, image=photo)
+        w.photo = photo
+        w.place(x=570, y=60)
+    else:
+        photo = PhotoImage(file="wr.gif")
+        w = Label(TL, image=photo)
+        w.photo = photo
+        w.place(x=570, y=60)
+    if step <= 10:
+        #sleep(4)
+        if step == 10:
+            print("step10")
+        TL.update()
+        ex1 = Button(TL, text="Προχώρησε", bd=1, width=10, font="Verdana 12 bold", bg="blue", fg="White",
+                     command=lambda: nextquestion(TL, root, counter, step))
+        ex1.pack()
+        ex1.place(x=180, y=625)
+
+
+def start():
+    global var
+    root = Tk()
+    w, h = root.winfo_screenwidth(), root.winfo_screenheight()
+    root.overrideredirect(1)
+    root.geometry("%dx%d+0+0" % (w, h))
+    photo = PhotoImage(file="0.gif")
+    w = Label(root, image=photo)
+    w.photo = photo
+    w.place(x=-5, y=-5)
+    photo = PhotoImage(file="logo2.gif")
+    w = Label(root, image=photo)
+    w.photo = photo
+    w.place(x=1050, y=100)
+    counter = 0
+    step = 1
+    b2 = Button(root, text='Η Πρόκληση του Ευφυούς Νερού!', bd=10, height=1, font="Verdana 14 bold", bg="Black",
+                fg="White", command=lambda: e_q1(root, counter, step), compound=CENTER)
+    b2.pack()
+    b2.place(x=500, y=350)
+    ex = Button(root, text="Έξοδος", bd=1, width=6, font="Verdana 10 bold", bg="red", fg="White",
+                command=lambda: root.destroy())
+    ex.pack()
+    ex.place(x=1200, y=725)
+    root.mainloop()
+
+
+start()
