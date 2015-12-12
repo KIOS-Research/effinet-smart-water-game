@@ -14,3 +14,4 @@ The game platform is released under an open-source license and is available to b
 - Open a Command-line window `cmd` and open the download folder
 - Execute `python quiz2-en.py`
 - Enjoy!
+
