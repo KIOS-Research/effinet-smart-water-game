@@ -15,3 +15,6 @@ The game platform is released under an open-source license and is available to b
 - Execute `python quiz2-en.py`
 - Enjoy!
 
+![The Smart Water Challenge](https://raw.githubusercontent.com/KIOS-Research/effinet-smart-water-game/master/Screenshots/1.png)
+
+![Question and Answer](https://raw.githubusercontent.com/KIOS-Research/effinet-smart-water-game/master/Screenshots/2.png)
